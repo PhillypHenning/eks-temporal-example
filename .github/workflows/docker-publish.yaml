@@ -27,7 +27,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ vars.DOCKERHUB_USERNAME }}/temporal-example-worker:${{ github.sha }} -t ${{ vars.DOCKERHUB_USERNAME }}/temporal-example-worker:latest .
+        docker build -t ${{ vars.DOCKERHUB_USERNAME }}/temporal-example-worker:${{ github.sha }} -t ${{ vars.DOCKERHUB_USERNAME }}/temporal-example-worker:latest Worker/.
 
     - name: Push Docker image
       run: |
