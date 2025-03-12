@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temporal-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temporal-worker
+  template:
+    metadata:
+      labels:
+        app: temporal-worker
+    spec:
+      containers:
+      - name: worker
+        image: awildphil/temporal-example-worker:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TEMPORAL_SERVER
+          value: "temporal-training-frontend.default.svc.cluster.local:7233"
