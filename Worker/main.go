@@ -18,13 +18,37 @@ func SimpleActivity(ctx context.Context, message string) (string, error) {
 	return fmt.Sprintf("Activity processed message (B): %s", message), nil
 }
 
+// func SampleWorkflow(ctx workflow.Context, message string) (string, error) {
+// 	options := workflow.ActivityOptions{
+// 		StartToCloseTimeout: time.Duration(10 * time.Second),
+// 	}
+// 	ctx = workflow.WithActivityOptions(ctx, options)
+// 	var result string
+// 	err := workflow.ExecuteActivity(ctx, SimpleActivity, message).Get(ctx, &result)
+// 	if err != nil {
+// 		return "", err
+// 	}
+// 	return result, nil
+// }
+
 func SampleWorkflow(ctx workflow.Context, message string) (string, error) {
+	// Set search attributes
+	searchAttributes := map[string]interface{}{
+		"CustomAttribute1": os.Getenv("CANARY_DEPLOYMENT_ATTRIBUTE"),
+	}
+
+	err := workflow.UpsertSearchAttributes(ctx, searchAttributes)
+	if err != nil {
+		return "", err
+	}
+
 	options := workflow.ActivityOptions{
 		StartToCloseTimeout: time.Duration(10 * time.Second),
 	}
 	ctx = workflow.WithActivityOptions(ctx, options)
+
 	var result string
-	err := workflow.ExecuteActivity(ctx, SimpleActivity, message).Get(ctx, &result)
+	err = workflow.ExecuteActivity(ctx, SimpleActivity, message).Get(ctx, &result)
 	if err != nil {
 		return "", err
 	}
