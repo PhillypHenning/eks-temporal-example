@@ -15,7 +15,7 @@ import (
 const ApplicationName = "sampleGroup"
 
 func SimpleActivity(ctx context.Context, message string) (string, error) {
-	return fmt.Sprintf("Activity processed message: %s", message), nil
+	return fmt.Sprintf("Activity processed message (B): %s", message), nil
 }
 
 func SampleWorkflow(ctx workflow.Context, message string) (string, error) {
