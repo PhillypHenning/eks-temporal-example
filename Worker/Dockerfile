@@ -29,7 +29,7 @@ FROM alpine:3.18
 COPY --from=builder /app/worker /worker
 
 # Expose any ports the app requires
-EXPOSE 8080
+# EXPOSE 8080
 
 # Command to run the executable
 CMD ["/worker"]

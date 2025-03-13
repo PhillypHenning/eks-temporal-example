@@ -62,7 +62,7 @@ Add the Temporal Helm repository and deploy Temporal:
 
 ```bash
 helm repo add temporalio https://temporalio.github.io/helm-charts
-helm install temporal-training temporalio/temporal --version 0.52.0
+helm install temporal-training temporalio/temporal --version 0.52.0 -f Server/values.yaml
 ```
 
 3. **Verify Installation**:
