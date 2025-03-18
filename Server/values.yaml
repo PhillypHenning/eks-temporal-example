@@ -6,7 +6,8 @@ cassandra:
     cluster_size: 1
 
 elasticsearch:
-  replicas: 1
+  # replicas: 1
+  enabled: false
 
 prometheus:
   enabled: false

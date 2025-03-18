@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temporal-worker-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temporal-worker-a
+  template:
+    metadata:
+      labels:
+        app: temporal-worker-a
+    spec:
+      containers:
+      - name: worker
+        image: awildphil/temporal-example-worker:4492f8c41e6a1a1c926a7acc2fad34ad01ea9691
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TEMPORAL_SERVER
+          value: "temporal-training-frontend.default.svc.cluster.local:7233"
+        - name: CANARY_DEPLOYMENT_ATTRIBUTE
+          value: "deployment-a"
